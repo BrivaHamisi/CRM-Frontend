@@ -1,3 +1,4 @@
+
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
@@ -24,10 +25,10 @@ export default function Blog() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Blog
+            Complain
           </Typography>
           <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Post
+            New Complain
           </Button>
         </Stack>
 
@@ -39,7 +40,8 @@ export default function Blog() {
         <Grid container spacing={3}>
           {POSTS.map((post, index) => (
             <BlogPostCard key={post.id} post={post} index={index} />
-          ))}
+          ))
+          }
         </Grid>
       </Container>
     </Page>
