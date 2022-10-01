@@ -32,12 +32,12 @@ export default function AlignItemsList() {
   }, [])
 
   return (
-    <div>
-      <h3>Title</h3>
+    <div >
+      {/* <h3>Title</h3> */}
       {complaints.map(complaint =>{
         return (
           // <h2>{complaint.Complain_description}</h2>
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <List key={complaint.id} sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />

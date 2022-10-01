@@ -59,10 +59,7 @@ export default function Blog() {
         </Stack>
 
         <Grid  spacing={3}>
-          {complaints.map((complaint) => (
-            <BlogPostCard/>
-          ))
-          }
+        <BlogPostCard/>
         </Grid>
       </Container>
     </Page>
