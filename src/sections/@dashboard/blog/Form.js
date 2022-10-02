@@ -17,7 +17,8 @@ function Form() {
       <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '100%' },
+        padding: '20px',
+        '& .MuiTextField-root': { m: 1, width: '90%' },
       }}
       noValidate
       autoComplete="off"
