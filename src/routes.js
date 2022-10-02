@@ -10,6 +10,7 @@ import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
+import Form from './sections/@dashboard/blog/Form';
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +24,7 @@ export default function Router() {
         { path: 'user', element: <User /> },
         { path: 'complaints_status', element: <Products /> },
         { path: 'complaints', element: <Blog /> },
+        { path: 'new_complaint', element: <Form /> },
       ],
     },
     {

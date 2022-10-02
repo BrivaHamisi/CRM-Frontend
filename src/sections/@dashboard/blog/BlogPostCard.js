@@ -44,8 +44,6 @@ export default function AlignItemsList() {
 
   return (
     <div >
-      <Form complaintS={editComplaints}/>
-      {/* <h3>Title</h3> */}
       {complaints.map(complaint =>{
         return (
           // <h2>{complaint.Complain_description}</h2>

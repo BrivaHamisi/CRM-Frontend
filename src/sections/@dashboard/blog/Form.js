@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Typography, Button, Stack } from '@mui/material';
 
 function Form() {
     const [value, setValue] = React.useState('Controlled');
@@ -9,7 +10,11 @@ function Form() {
     //   setValue(event.target.value);
     // };
   return (
-    <Box
+    <div padding = {2}>
+      <Typography variant="h4" gutterBottom>
+            Submit A Complaint
+      </Typography>
+      <Box
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '100%' },
@@ -66,9 +71,18 @@ function Form() {
         //   defaultValue="Default Value"
           variant="filled"
         />
-      </div>
-      
+      </div> 
     </Box>
+    <Stack direction="row" padding = {2} spacing={3}>
+      <Button onClick={()=>''} variant="contained" color="success">
+        Submit Complaint
+      </Button>
+      <Button onClick={()=>''} variant="outlined" color="error">
+        Cancel
+      </Button>
+    </Stack>
+    </div>
+    
   )
 }
 

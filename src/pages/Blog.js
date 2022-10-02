@@ -46,9 +46,9 @@ export default function Blog() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Complaints
+            My Complaints
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button  variant="contained" component={RouterLink} to={"/dashboard/new_complaint"} startIcon={<Iconify icon="eva:plus-fill" />}>
             New Complaint
           </Button>
         </Stack>
