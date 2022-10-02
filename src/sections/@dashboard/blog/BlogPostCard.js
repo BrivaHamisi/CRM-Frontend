@@ -9,10 +9,21 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Form from './Form';
+
 export default function AlignItemsList() {
   const [complaints, setComplaints] = useState([
     
   ])
+  const [editComplaints, setEditComplaints] = useState([
+    null
+  ])
+  const editBtn = (complaints) =>{
+    setEditComplaints(complaints)
+  }
+
   useEffect(() =>{
     fetch('http://127.0.0.1:8000/api/complaints/', {
       'method':'GET',
@@ -33,6 +44,7 @@ export default function AlignItemsList() {
 
   return (
     <div >
+      <Form complaintS={editComplaints}/>
       {/* <h3>Title</h3> */}
       {complaints.map(complaint =>{
         return (
@@ -59,6 +71,15 @@ export default function AlignItemsList() {
           }
         />
       </ListItem>
+      <Stack direction="row" padding = {2} spacing={3}>
+      <Button onClick={()=>''} variant="contained" color="success">
+        Update
+      </Button>
+      <Button onClick={()=>''} variant="outlined" color="error">
+        Delete
+      </Button>
+    </Stack>
+
       <Divider variant="inset" component="li" />
       
     </List>
