@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,6 +15,7 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 // ----------------------------------------------------------------------
 
+const baseUrl = '127.0.0.1:8000/login'
 export default function LoginForm() {
   const navigate = useNavigate();
 
@@ -43,12 +46,44 @@ export default function LoginForm() {
     navigate('/dashboard', { replace: true });
   };
 
+  const [logindata, setLoginData] =useState({
+    'email':'',
+    'password':''
+  })
+  
+
+  const HandleChange =(event)=>{
+    setLoginData({
+     ...logindata,[event.target.name]: event.target.value
+    });
+      console.log(logindata)
+  }
+
+  const HandleSubmit=(event)=>{
+    const userLoginData = new FormData();
+    userLoginData.append('email',logindata.email);
+    userLoginData.append('password',logindata.password);
+
+    try{
+      axios.post(baseUrl, userLoginData).then(res=>{
+        console.log(res.data);
+      })
+    }catch(error){
+      console.log(error)
+    }
+
+  }
+ 
+
+
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods}  onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField onChange={HandleChange} value={logindata.email} name="email" label="Email address" />
 
         <RHFTextField
+         onChange={HandleChange} 
+         value={logindata.password}
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
@@ -71,7 +106,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+      <LoadingButton onClick={HandleSubmit} fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
         Login
       </LoadingButton>
     </FormProvider>

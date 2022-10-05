@@ -42,7 +42,15 @@ function Form() {
         />
         <TextField
           id="filled-multiline-static"
-          label="What are the Events that took Place?"
+          label="What are the Consequences that you suffered as a result of that?"
+          multiline
+          rows={4}
+        //   defaultValue="Default Value"
+          variant="filled"
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Have you Spoken to someone?"
           multiline
           rows={4}
         //   defaultValue="Default Value"
@@ -58,7 +66,7 @@ function Form() {
         />
         <TextField
           id="filled-multiline-static"
-          label="What are the Events that took Place?"
+          label="Are you satisfied with Informal complaint resolution Mechanism?"
           multiline
           rows={4}
         //   defaultValue="Default Value"
@@ -66,7 +74,15 @@ function Form() {
         />
         <TextField
           id="filled-multiline-static"
-          label="What are the Events that took Place?"
+          label="Attach Any Evidence that you have?"
+          multiline
+          rows={4}
+        //   defaultValue="Default Value"
+          variant="filled"
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="What do you recommend?"
           multiline
           rows={4}
         //   defaultValue="Default Value"
