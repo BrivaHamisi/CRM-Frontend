@@ -15,7 +15,7 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 // ----------------------------------------------------------------------
 
-const baseUrl = '127.0.0.1:8000/login'
+const baseUrl = 'http://127.0.0.1:8000/login/'
 export default function LoginForm() {
   const navigate = useNavigate();
 
@@ -47,8 +47,8 @@ export default function LoginForm() {
   };
 
   const [logindata, setLoginData] =useState({
-    'email':'',
-    'password':''
+    'Email':'',
+    'Password':''
   })
   
 
@@ -61,11 +61,11 @@ export default function LoginForm() {
 
   const HandleSubmit=(event)=>{
     const userLoginData = new FormData();
-    userLoginData.append('email',logindata.email);
-    userLoginData.append('password',logindata.password);
+    userLoginData.append('Email',logindata.Email);
+    userLoginData.append('Password',logindata.Password);
 
     try{
-      axios.post(baseUrl, userLoginData).then(res=>{
+      axios.post(baseUrl, userLoginData).then((res)=>{
         console.log(res.data);
       })
     }catch(error){
@@ -74,17 +74,15 @@ export default function LoginForm() {
 
   }
  
-
-
   return (
-    <FormProvider methods={methods}  onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods}>
       <Stack spacing={3}>
-        <RHFTextField onChange={HandleChange} value={logindata.email} name="email" label="Email address" />
+        <RHFTextField onChange={HandleChange} value={logindata.Email} name="Email" label="Email address" />
 
         <RHFTextField
          onChange={HandleChange} 
-         value={logindata.password}
-          name="password"
+         value={logindata.Password}
+          name="Password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
