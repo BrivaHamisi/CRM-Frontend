@@ -1,7 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Card, Link, Container, Typography } from '@mui/material';
+import RegisterForm1 from '../sections/auth/register/RegisterForm1';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -10,6 +12,7 @@ import Logo from '../components/Logo';
 // sections
 import { RegisterForm } from '../sections/auth/register';
 import AuthSocial from '../sections/auth/AuthSocial';
+
 
 // ----------------------------------------------------------------------
 
@@ -60,6 +63,7 @@ export default function Register() {
   const smUp = useResponsive('up', 'sm');
 
   const mdUp = useResponsive('up', 'md');
+  const [active, setActive] = useState(0)
 
   return (
     <Page title="Register">
@@ -95,7 +99,8 @@ export default function Register() {
 
             <AuthSocial />
 
-            <RegisterForm />
+            <RegisterForm   setActive={setActive} active={active}/>
+            <RegisterForm1  setActive={setActive}  active={active}/>
 
             <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
               By registering, I agree to CRS&nbsp;

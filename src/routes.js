@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Form from './sections/@dashboard/blog/Form';
+import RegisterForm1 from './sections/auth/register/RegisterForm1';
 
 // ----------------------------------------------------------------------
 
