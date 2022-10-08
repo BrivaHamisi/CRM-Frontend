@@ -73,7 +73,7 @@ export default function RegisterForm() {
         />
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Next
+          Next 
         </LoadingButton>
       </Stack>
     </FormProvider>
