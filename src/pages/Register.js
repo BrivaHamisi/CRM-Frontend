@@ -100,6 +100,7 @@ export default function Register() {
             <AuthSocial />
 
             <RegisterForm   setActive={setActive} active={active}/>
+            
             <RegisterForm1  setActive={setActive}  active={active}/>
 
             <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
