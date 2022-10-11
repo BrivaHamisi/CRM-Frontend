@@ -11,7 +11,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Form from './sections/@dashboard/blog/Form';
-import RegisterForm1 from './sections/auth/register/RegisterForm1';
+import AppealForm from './sections/@dashboard/blog/AppealForm';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +26,7 @@ export default function Router() {
         { path: 'complaints_status', element: <Products /> },
         { path: 'complaints', element: <Blog /> },
         { path: 'new_complaint', element: <Form /> },
+        { path: 'appeal', element: <AppealForm /> },
       ],
     },
     {
