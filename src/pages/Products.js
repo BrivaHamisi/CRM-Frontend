@@ -3,7 +3,11 @@ import { useState } from 'react';
 import { Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
+import { ProductSort, ProductFilterSidebar } from '../sections/@dashboard/products';
+import CustomizedSteppers from '../sections/@dashboard/products/CustomizedSteppers';
+
+
+
 // mock
 import PRODUCTS from '../_mock/products';
 
@@ -38,7 +42,7 @@ export default function EcommerceShop() {
           </Stack>
         </Stack>
 
-        
+        <CustomizedSteppers/>
       </Container>
     </Page>
   );
