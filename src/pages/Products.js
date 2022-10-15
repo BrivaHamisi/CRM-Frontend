@@ -6,11 +6,6 @@ import Page from '../components/Page';
 import { ProductSort, ProductFilterSidebar } from '../sections/@dashboard/products';
 import CustomizedSteppers from '../sections/@dashboard/products/CustomizedSteppers';
 
-
-
-// mock
-import PRODUCTS from '../_mock/products';
-
 // ----------------------------------------------------------------------
 
 export default function EcommerceShop() {
