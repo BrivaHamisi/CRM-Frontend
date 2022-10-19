@@ -13,10 +13,8 @@ function Form() {
     Complain_description:"",
     Events_that_took_Place:"",
     Consequence_suffered: "",
-    Spoken_to_someone: "",
-    Dissatisfied_with_Informal_complaint: "",
-    evidence:"",
-    recommendation: "",
+    user: "",
+    feedback_id: "",
 
   })
 
@@ -56,7 +54,7 @@ function Form() {
       noValidate
       autoComplete="off"
     >
-      <form action="http://127.0.0.1:8000/api/complaints/" method='post' >
+      <form action="http://127.0.0.1:8000/api/appeals/" method='post' >
       <TextField
           id="filled-textarea"
           label="Why do you think the Complaint Feedback was not satisfying?"
