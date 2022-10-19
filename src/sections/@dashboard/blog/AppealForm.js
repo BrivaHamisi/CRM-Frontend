@@ -90,61 +90,6 @@ function Form() {
         //   defaultValue="Default Value"
           variant="filled"
         />
-        {/* <TextField
-          id="filled-multiline-static"
-          label="Have you Spoken to someone?"
-          multiline
-          name='Spoken_to_someone'
-          value={complaints.Spoken_to_someone}
-          onChange= {(event)=>setComplaints({...complaints,Spoken_to_someone:event.target.value})}
-          rows={4}
-        //   defaultValue="Default Value"
-          variant="filled"
-        /> */}
-        {/* <TextField
-          id="filled-multiline-static"
-          label="What are the Events that took Place?"
-          multiline
-          name='Events_that_took_Place'
-          value={complaints.Events_that_took_Place}
-          onChange= {(event)=>setComplaints({...complaints,Events_that_took_Place:event.target.value})}
-          rows={4}
-        //   defaultValue="Default Value"
-          variant="filled"
-        /> */}
-        {/* <TextField
-          id="filled-multiline-static"
-          label="Are you satisfied with Informal complaint resolution Mechanism?"
-          multiline
-          name='Dissatisfied_with_Informal_complaint'
-          value={complaints.Dissatisfied_with_Informal_complaint}
-          onChange= {(event)=>setComplaints({...complaints,Dissatisfied_with_Informal_complaint:event.target.value})}
-          rows={4}
-        //   defaultValue="Default Value"
-          variant="filled"
-        /> */}
-        {/* <TextField
-          id="filled-multiline-static"
-          label="Attach Any Evidence that you have?"
-          multiline
-          name='evidence'
-          value={complaints.evidence}
-          onChange= {(event)=>setComplaints({...complaints,evidence:event.target.value})}
-          rows={4}
-        //   defaultValue="Default Value"
-          variant="filled"
-        /> */}
-        {/* <TextField
-          id="filled-multiline-static"
-          label="What do you recommend?"
-          multiline
-          name='recommendation'
-          value={complaints.recommendation}
-          onChange= {(event)=>setComplaints({...complaints,recommendation:event.target.value})}
-          rows={4}
-        //   defaultValue="Default Value"
-          variant="filled"
-        /> */}
         <Stack direction="row" padding = {2} spacing={3}>
       <Button type='submit' variant="contained" color="success">
         Submit Appeal
