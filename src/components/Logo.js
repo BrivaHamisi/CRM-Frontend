@@ -8,10 +8,9 @@ import { Box } from '@mui/material';
 
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
-  sx: PropTypes.object,
 };
 
-export default function Logo({ disabledLink = false, sx }) {
+export default function Logo({ disabledLink = false}) {
 
   const logo = <Box component="img" src="../static/logo.png"  />
 

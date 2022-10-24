@@ -15,7 +15,7 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 // ----------------------------------------------------------------------
 
-const baseUrl = 'http://127.0.0.1:8000/login/'
+const baseUrl = 'http://127.0.0.1:8000/api/users/'
 export default function LoginForm() {
   const navigate = useNavigate();
 
