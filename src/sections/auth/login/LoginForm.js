@@ -21,6 +21,9 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -77,11 +80,11 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods}>
       <Stack spacing={3}>
-        <RHFTextField onChange={HandleChange} value={logindata.Email} name="Email" label="Email address" />
+        <RHFTextField onChange={e => setEmail(e.target.value)} value={email} name="Email" label="Email address" />
 
         <RHFTextField
-         onChange={HandleChange} 
-         value={logindata.Password}
+         onChange={e => setPassword(e.target.value)} 
+         value={password}
           name="Password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
