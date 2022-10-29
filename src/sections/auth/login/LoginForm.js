@@ -24,16 +24,16 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    email: '',
+    username: '',
     password: '',
     remember: true,
   };
@@ -53,7 +53,7 @@ export default function LoginForm() {
   };
 
   const [logindata, setLoginData] =useState({
-    'Email':'',
+    'Username':'',
     'Password':''
   })
   
@@ -66,24 +66,18 @@ export default function LoginForm() {
   }
 
   const HandleSubmit=(event)=>{
-    const userLoginData = new FormData();
-    userLoginData.append('Email',logindata.Email);
-    userLoginData.append('Password',logindata.Password);
-
-    try{
-      axios.post(baseUrl, userLoginData).then((res)=>{
-        console.log(res.data);
-      })
-    }catch(error){
-      console.log(error)
-    }
-
+    event.preventDefault();
+    console.log( `Credentials are ${username} ${password}`)
+    APIService.LoginUser({username, password}).then(data => {
+      console.log(data);
+      navigate('/dashboard/app', { replace: true, state: data });
+    })
   }
  
   return (
     <FormProvider methods={methods}>
       <Stack spacing={3}>
-        <RHFTextField onChange={e => setEmail(e.target.value)} value={email} name="Email" label="Email address" />
+        <RHFTextField onChange={e => setUsername(e.target.value)} value={username} name="Username" label="Username" />
 
         <RHFTextField
          onChange={e => setPassword(e.target.value)} 

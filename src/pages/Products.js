@@ -5,6 +5,8 @@ import { Container, Stack, Typography } from '@mui/material';
 import Page from '../components/Page';
 import { ProductSort, ProductFilterSidebar } from '../sections/@dashboard/products';
 import CustomizedSteppers from '../sections/@dashboard/products/CustomizedSteppers';
+// import MyComplaints from '../sections/@dashboard/blog';
+import { MyComplaints } from '../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +40,8 @@ export default function EcommerceShop() {
         </Stack>
 
         <CustomizedSteppers/>
+        <MyComplaints/>
+       
       </Container>
     </Page>
   );

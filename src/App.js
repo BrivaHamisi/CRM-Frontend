@@ -11,6 +11,10 @@ import { BaseOptionChartStyle } from './components/chart/BaseOptionChart';
 
 // ----------------------------------------------------------------------
 
+const cors = require('cors')
+
+
+
 export default function App() {
 
   return (

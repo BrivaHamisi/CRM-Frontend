@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-export default function AlignItemsList() {
+export default function MyComplaints() {
   const [complaints, setComplaints] = useState([
     
   ])
@@ -41,7 +41,7 @@ export default function AlignItemsList() {
         <List editBtn={editBtn} key={complaint.id} sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="My Complaints" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
           primary={complaint.description}
@@ -61,9 +61,9 @@ export default function AlignItemsList() {
         />
       </ListItem>
       <Stack direction="row" padding = {2} spacing={3}>
-      <Button onClick={()=>editBtn(complaints)} variant="contained" color="success">
+      {/* <Button onClick={()=>editBtn(complaints)} variant="contained" color="success">
         Update
-      </Button>
+      </Button> */}
       <Button onClick={()=>editBtn(complaints)} variant="outlined" color="error">
         Delete
       </Button>

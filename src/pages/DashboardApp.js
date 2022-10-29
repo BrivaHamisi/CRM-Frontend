@@ -1,4 +1,6 @@
+import { useLocation } from 'react-router-dom';
 import { faker } from '@faker-js/faker';
+import { useEffect, useState } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
@@ -10,21 +12,40 @@ import Iconify from '../components/Iconify';
 
 export default function DashboardApp() {
   const theme = useTheme();
+  const [complaints, setComplaints] = useState([])
+  const { state: user } = useLocation();
+  const [weeklyComplaints, setWeeklyComplaints] = useState(0)
+ 
+  useEffect(() =>{
+    fetch('http://127.0.0.1:8000/api/complaints/', {
+      'method':'GET',
+    })
+    .then(resp => resp.json())
+    .then(async(resp) => {
+      await setComplaints(resp)
+      setWeeklyComplaints(complaints.filter(each=>{
+      return (new Date(each.date).getTime())>= new Date().getTime()-(7*24*60*60*1000) 
+    }).length)
+    })
+    .catch(error => console.log(error))
+  
+   
+  }, [])
 
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi, {user?.user?.username} Welcome back
         </Typography>
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Complaints" total={114} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Weekly Complaints" total={weeklyComplaints} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Submitted Complaints" total={1234} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Submitted Complaints" total={complaints.length} color="info" icon={'ant-design:apple-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
