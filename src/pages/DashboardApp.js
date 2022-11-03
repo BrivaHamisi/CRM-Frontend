@@ -15,6 +15,10 @@ export default function DashboardApp() {
   const [complaints, setComplaints] = useState([])
   const { state: user } = useLocation();
   const [weeklyComplaints, setWeeklyComplaints] = useState(0)
+
+  const [solved, setSolved] = useState(0)
+
+  const [pending, setPending] = useState(0)
  
   useEffect(() =>{
     fetch('http://127.0.0.1:8000/api/complaints/', {
@@ -23,13 +27,41 @@ export default function DashboardApp() {
     .then(resp => resp.json())
     .then(async(resp) => {
       await setComplaints(resp)
-      setWeeklyComplaints(complaints.filter(each=>{
-      return (new Date(each.date).getTime())>= new Date().getTime()-(7*24*60*60*1000) 
+      setWeeklyComplaints(resp.filter(each=>{
+      return (new Date(each.date).getTime())>= (new Date().getTime()-(7*24*60*60*1000) )
+    }).length)
+    setSolved(resp.filter(each=>{
+      return each.status_of_complaint==="solved"
+    }).length)
+    setPending(resp.filter(each=>{
+      return each.status_of_complaint==="pending"
     }).length)
     })
     .catch(error => console.log(error))
   
    
+  }, [weeklyComplaints])
+
+  const [generalUpdates, setGeneralUpdates] = useState([
+    
+  ])
+  useEffect(() =>{
+    const fetchUpdates = async ()=>{
+      const request =  await fetch('http://127.0.0.1:8000/api/general_issues/', {
+        'method':'GET', })
+      const response = await request.json()
+      if(response !== null){
+       return response
+      }
+     
+           
+    }
+    fetchUpdates().then(success=>{
+      if (success !== null){
+        setGeneralUpdates(success)
+        console.log(generalUpdates)
+      }
+    }).catch(error=>console.log(error))
   }, [])
 
   return (
@@ -49,11 +81,11 @@ export default function DashboardApp() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Solved" total={790} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Solved" total={solved} color="warning" icon={'ant-design:windows-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Pending Complaints" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Pending Complaints" total={pending} color="error" icon={'ant-design:bug-filled'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}/>
@@ -70,12 +102,12 @@ export default function DashboardApp() {
           <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="General Issues Updates"
-              list={[...Array(5)].map((_, index) => ({
-                id: faker.datatype.uuid(),
-                title: faker.name.jobTitle(),
-                description: faker.name.jobTitle(),
+              list={generalUpdates.map((each, index) => ({
+                id: each.id,
+                title : each.title,
+                description: each.content,
                 image: `/static/mock-images/covers/cover_${index + 1}.jpg`,
-                postedAt: faker.date.recent(),
+                postedAt: new Date(each.date)
               }
               ))}
             />
