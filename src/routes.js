@@ -12,6 +12,7 @@ import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Form from './sections/@dashboard/blog/Form';
 import AppealForm from './sections/@dashboard/blog/AppealForm';
+import Details from './sections/@dashboard/blog/Details';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ export default function Router() {
         { path: 'complaints', element: <Blog /> },
         { path: 'new_complaint', element: <Form /> },
         { path: 'appeal', element: <AppealForm /> },
+        { path: 'details', element: <Details /> },
       ],
     },
     {
