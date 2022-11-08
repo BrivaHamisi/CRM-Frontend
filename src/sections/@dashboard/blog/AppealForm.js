@@ -88,6 +88,15 @@ function Form() {
         //   defaultValue="Default Value"
           variant="filled"
         />
+        <Button
+          variant="contained"component="label">
+          Upload File
+          <input
+            type="file"
+            hidden
+        />
+</Button>
+
         <Stack direction="row" padding = {2} spacing={3}>
       <Button type='submit' variant="contained" color="success">
         Submit Appeal
