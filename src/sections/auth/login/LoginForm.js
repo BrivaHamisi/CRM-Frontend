@@ -14,6 +14,7 @@ import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 import APIService from '../../../components/APIService';
+import { storeUser } from '../../../pages/storage';
 
 // ----------------------------------------------------------------------
 
@@ -68,8 +69,9 @@ export default function LoginForm() {
   const HandleSubmit=(event)=>{
     event.preventDefault();
     console.log( `Credentials are ${username} ${password}`)
-    APIService.LoginUser({username, password}).then(data => {
+    APIService.LoginUser({username, password}).then(async (data) => {
       console.log(data);
+      await storeUser(data);
       navigate('/dashboard/app', { replace: true, state: data });
     })
   }

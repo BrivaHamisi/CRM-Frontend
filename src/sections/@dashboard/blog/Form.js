@@ -4,42 +4,41 @@ import TextField from '@mui/material/TextField';
 import { Typography, Button, Stack } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
+import { getUser } from '../../../pages/storage';
+import API, { getConfig } from '../../../pages/API';
 
 function Form() {
-  const [editComplaints, setEditComplaints] = useState([
-    null
-  ])
-  const [complaints, setComplaints] = useState({
-    Complain_description:"",
-    Events_that_took_Place:"",
-    Consequence_suffered: "",
-    Spoken_to_someone: "",
-    Dissatisfied_with_Informal_complaint: "",
+  const [editComplaints, setEditComplaints] = useState([null])
+  const [complaint, setComplaints] = useState({
+    description:"",
+    events_that_took_place:"",
+    consequence_suffered: "",
+    spoken_to_someone: "",
+    dissatisfied_with_informal_complaint: "",
     evidence:"",
     recommendation: "",
-
   })
 
   // const editBtn = (complaints) =>{
   //   setEditComplaints(complaints)
   // }
 
-  const submitComplaint = async (complaint)=>{
+  const handleSubmitComplaint = async (event: Event)=>{
+    event.preventDefault();
+    const user = await getUser();
+    const body = { ...complaint, user: user?.user?.id }
 
-    try{
-        const res = await axios.post("http://127.0.0.1:8000/api/complaints/",complaint, {
-    headers:{"Content-Type":"application/json"}
+    API.post("/api/complaints/", body, await getConfig())
+      .then(({ data }) => {
+        console.log(data)
+      }).catch(err => {
+        const error = err?.response?.data
+        console.log(error)
+      })
+  }
 
-    })
-    if (res.status===200){
-      console.log(res.data)
-    }
-    }catch(e){
-      console.log(e.response.status)
-    }
-      
-  
-
+  const updateComplaints = (event) => {
+    setComplaints(prev => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
   return (
@@ -48,7 +47,6 @@ function Form() {
             Submit A Complaint  
       </Typography>
       <Box
-      component="form"
       sx={{
         padding: '20px',
         '& .MuiTextField-root': { m: 1, width: '90%' },
@@ -56,15 +54,15 @@ function Form() {
       noValidate
       autoComplete="off"
     >
-      <form action="http://127.0.0.1:8000/api/complaints/" method='post' >
+      <form method='post' onSubmit={handleSubmitComplaint} >
       <TextField
           id="filled-textarea"
           label="Complain description"
         //   placeholder="Placeholder"
           multiline
-          name='Complain_description'
-          value={complaints.Complain_description}
-          onChange= {(event)=>setComplaints({...complaints,Complain_description:event.target.value})}
+          name='description'
+          value={complaint.description}
+          onChange = {updateComplaints}
           variant="filled"
         />
 
@@ -72,9 +70,9 @@ function Form() {
           id="filled-multiline-static"
           label="What are the Events that took Place?"
           multiline
-          name='Events_that_took_Place'
-          value={complaints.Events_that_took_Place}
-          onChange= {(event)=>setComplaints({...complaints,Events_that_took_Place:event.target.value})}
+          name='events_that_took_place'
+          value={complaint.events_that_took_place}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
@@ -83,9 +81,9 @@ function Form() {
           id="filled-multiline-static"
           label="What are the Consequences that you suffered as a result of that?"
           multiline
-          name='Consequence_suffered'
-          value={complaints.Consequence_suffered}
-          onChange= {(event)=>setComplaints({...complaints,Consequence_suffered:event.target.value})}
+          name='consequence_suffered'
+          value={complaint.consequence_suffered}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
@@ -94,9 +92,9 @@ function Form() {
           id="filled-multiline-static"
           label="Have you Spoken to someone?"
           multiline
-          name='Spoken_to_someone'
-          value={complaints.Spoken_to_someone}
-          onChange= {(event)=>setComplaints({...complaints,Spoken_to_someone:event.target.value})}
+          name='spoken_to_someone'
+          value={complaint.spoken_to_someone}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
@@ -116,9 +114,9 @@ function Form() {
           id="filled-multiline-static"
           label="Are you satisfied with Informal complaint resolution Mechanism?"
           multiline
-          name='Dissatisfied_with_Informal_complaint'
-          value={complaints.Dissatisfied_with_Informal_complaint}
-          onChange= {(event)=>setComplaints({...complaints,Dissatisfied_with_Informal_complaint:event.target.value})}
+          name='dissatisfied_with_informal_complaint'
+          value={complaint.dissatisfied_with_informal_complaint}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
@@ -128,8 +126,8 @@ function Form() {
           label="Attach Any Evidence that you have?"
           multiline
           name='evidence'
-          value={complaints.evidence}
-          onChange= {(event)=>setComplaints({...complaints,evidence:event.target.value})}
+          value={complaint.evidence}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
@@ -139,17 +137,17 @@ function Form() {
           label="What do you recommend?"
           multiline
           name='recommendation'
-          value={complaints.recommendation}
-          onChange= {(event)=>setComplaints({...complaints,recommendation:event.target.value})}
+          value={complaint.recommendation}
+          onChange = {updateComplaints}
           rows={4}
         //   defaultValue="Default Value"
           variant="filled"
         />
         <Stack direction="row" padding = {2} spacing={3}>
-      <Button type='submit' variant="contained" color="success">
+      <Button type="submit" variant="contained" color="success">
         Submit Complaint
       </Button>
-      <Button onClick={()=>''} variant="outlined" color="error">
+      <Button type="button" onClick={()=>''} variant="outlined" color="error">
         Cancel
       </Button>
     </Stack>
@@ -158,7 +156,6 @@ function Form() {
     </Box>
     
     </div>
-    
   )
 }
 
