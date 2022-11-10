@@ -10,7 +10,8 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
-import RegisterForm1 from './RegisterForm1';
+import API, { getConfig } from '../../../pages/API';
+// import { getUser } from '../../../pages/storage';
 
 // ----------------------------------------------------------------------
 
@@ -20,46 +21,87 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name required'),
-    lastName: Yup.string().required('Last name required'),
+    username: Yup.string().required('Username required'),
+    first_name: Yup.string().required('First name required'),
+    last_name: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
+    reg_no: Yup.string().required('Registration Number is required'),
+    course: Yup.string().required('Course is required'),
+    campus: Yup.string().required('Campus is required'),
+    phone_number: Yup.string().required('Phone Number is required'),
+    department: Yup.string().required('Department is required'),
   });
 
-  const defaultValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
+  const [register, setRegister] = useState({
+    user:"",
+    username:"",
+    first_name:"",
+    last_name: "",
+    email: "",
+    reg_no: "",
+    course:"",
+    campus: "",
+    phone_number: "",
+    department: "",
+  })
 
   const methods = useForm({
     resolver: yupResolver(RegisterSchema),
-    defaultValues,
+    // defaultValues,
   });
 
   const {
-    handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
-    navigate('/RegisterForm1', { replace: true });
+  const onSubmit = async (event: Event) => {
+    event.preventDefault();
+    // const user = await getUser();
+    // const body = { ...complaint, user: user?.user?.id }
+
+    API.post("/api/complainants/", await getConfig())
+      .then(({ data }) => {
+        console.log(data)
+      }).catch(err => {
+        const error = err?.response?.data
+        console.log(error)
+      })
+    // navigate('/Dashboard/app', { replace: true });
   };
 
+  const registerUser = (event) => {
+    setRegister(prev => ({ ...prev, [event.target.name]: event.target.value }))
+  }
+
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3}>
+      <RHFTextField name="username"
+           value={register.username}
+          onChange = {registerUser}
+           label="Username" />
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="firstName" label="First name" />
-          <RHFTextField name="lastName" label="Last name" />
+          <RHFTextField name="first_name"
+           value={register.first_name}
+          onChange = {registerUser}
+           label="First name" />
+          <RHFTextField name="last_name"
+           value={register.last_name}
+           onChange = {registerUser}
+           label="Last name" />
         </Stack>
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email"
+         value={register.email}
+         onChange = {registerUser}
+        label="Email address" />
 
         <RHFTextField
           name="password"
           label="Password"
+          value={register.password}
+          onChange = {registerUser}
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -72,8 +114,32 @@ export default function RegisterForm() {
           }}
         />
 
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <RHFTextField name="reg_no"
+           value={register.reg_no}
+           onChange = {registerUser}
+          label="Registration Number" />
+          <RHFTextField name="course" 
+           value={register.course}
+           onChange = {registerUser}
+          label="Course" />
+        </Stack>
+
+        <RHFTextField name="campus"
+         value={register.campus}
+         onChange = {registerUser}
+        label="Campus" />
+        <RHFTextField name="phone_number"
+         value={register.phone_number}
+         onChange = {registerUser}
+        label="Phone Number" />
+        <RHFTextField name="department" 
+         value={register.department}
+         onChange = {registerUser}
+        label="Department" />
+
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Next 
+          Submit
         </LoadingButton>
       </Stack>
     </FormProvider>
