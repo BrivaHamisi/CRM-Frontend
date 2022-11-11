@@ -33,7 +33,7 @@ export default function Blog() {
         // "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
         // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
         'Content-Type':'application/json',
-        'authorization':'Token 782d582308a88ae82d4d3cee3175c1753afa02e2'
+        // 'authorization':'Token 782d582308a88ae82d4d3cee3175c1753afa02e2'
       },
       // body:JSON.stringify(body)
     })

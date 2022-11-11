@@ -60,15 +60,6 @@ export default function AlignItemsList() {
           }
         />
       </ListItem>
-      <Stack direction="row" padding = {2} spacing={3}>
-      <Button onClick={()=>editBtn(complaints)} variant="contained" color="success">
-        Update
-      </Button>
-      <Button onClick={()=>editBtn(complaints)} variant="outlined" color="error">
-        Delete
-      </Button>
-    </Stack>
-
       <Divider variant="inset" component="li" />
       
     </List>
