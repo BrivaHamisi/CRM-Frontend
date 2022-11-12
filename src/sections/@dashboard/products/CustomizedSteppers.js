@@ -46,13 +46,6 @@ export default function CustomizedSteppers({complaint}) {
     }
    
   }, [activeStep, complaint])
-  
-
-
-
-  // const handleReset = () => {
-  //   setActiveStep(1);
-  // };
 
   return (
     <Box sx={{ maxWidth: 1000 }}>
@@ -74,14 +67,6 @@ export default function CustomizedSteppers({complaint}) {
           </Step>
         ))}
       </Stepper>
-      {/* {activeStep === steps.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Reset
-          </Button>
-        </Paper>
-      )} */}
     </Box>
   );
 }

@@ -37,7 +37,7 @@ export default function User() {
     
   ])
   useEffect(() =>{
-    fetch('http://127.0.0.1:8000/api/feedbacks/', {
+    fetch('http://127.0.0.1:8000/api/feedbacks/?user=true', {
       'method':'GET',headers:{"Content-Type":"application/json"}
     })
     .then(resp => resp.json())
@@ -53,13 +53,13 @@ export default function User() {
   };
 
   return (
-    <Page title="User">
+    <Page title="Feedbacks">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             Received Feedbacks
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button variant="contained" component={RouterLink} to="/dashboard/appeal" startIcon={<Iconify icon="eva:plus-fill" />}>
             Launch Appeal
           </Button>
         </Stack>
@@ -86,9 +86,23 @@ export default function User() {
                     variant="body2"
                     color="text.primary"
                   >
-                    Ali Connors
+                    {feedback.action_taken}
                   </Typography>
-                  {" — I'll be in your neighborhood doing errands this…"}
+
+                  <br/>
+
+                  Complaint Status: { feedback.feedback_status }
+
+                  <br/>
+
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {}
+                  </Typography>
                 </>
               }
             />

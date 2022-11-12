@@ -48,7 +48,7 @@ export default function RegisterForm() {
 
   const methods = useForm({
     resolver: yupResolver(RegisterSchema),
-    // defaultValues,
+    //  defaultValues,
   });
 
   const {

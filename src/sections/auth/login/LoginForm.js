@@ -29,13 +29,13 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
 
   const LoginSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required'),
+    Username: Yup.string().required('Username is required'),
+    Password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    username: '',
-    password: '',
+    Username: '',
+    Password: '',
     remember: true,
   };
 
