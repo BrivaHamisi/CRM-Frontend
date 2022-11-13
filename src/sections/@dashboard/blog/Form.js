@@ -2,14 +2,20 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Typography, Button, Stack } from '@mui/material';
-import { useState } from 'react';
+import { useState, useContext,useEffect } from 'react';
 import axios from 'axios';
 import { getUser } from '../../../pages/storage';
 import API, { getConfig } from '../../../pages/API';
+import { ComplaintUpdateContext } from '../../../App';
+
 
 function Form() {
+  const {complaintUpdate} = useContext(ComplaintUpdateContext)
+  useEffect(()=>{
+  console.log('The complain to be updated:', complaintUpdate)
+  },[complaintUpdate])
   const [editComplaints, setEditComplaints] = useState([null])
-  const [complaint, setComplaints] = useState({
+  const [complaint, setComplaints] = useState(complaintUpdate!==null?complaintUpdate:{
     description:"",
     events_that_took_place:"",
     consequence_suffered: "",
@@ -19,9 +25,7 @@ function Form() {
     recommendation: "",
   })
 
-  // const editBtn = (complaints) =>{
-  //   setEditComplaints(complaints)
-  // }
+ 
 
   const handleSubmitComplaint = async (event: Event)=>{
     event.preventDefault();
@@ -31,6 +35,22 @@ function Form() {
     API.post("/api/complaints/", body, await getConfig())
       .then(({ data }) => {
         console.log(data)
+      }).catch(err => {
+        const error = err?.response?.data
+        console.log(error)
+      })
+  }
+
+  // Update Complaint
+  const editComplaint = async (event: Event, id)=>{
+    event.preventDefault();
+    const user = await getUser();
+    const body = complaint
+    console.log()
+
+    API.put(`/api/complaints/${id}/`, body, await getConfig())
+      .then(({ data }) => {
+        console.log(data.user)
       }).catch(err => {
         const error = err?.response?.data
         console.log(error)
@@ -54,7 +74,7 @@ function Form() {
       noValidate
       autoComplete="off"
     >
-      <form method='post' onSubmit={handleSubmitComplaint} >
+      <form method='post' >
       <TextField
           id="filled-textarea"
           label="Complain description"
@@ -144,10 +164,12 @@ function Form() {
           variant="filled"
         />
         <Stack direction="row" padding = {2} spacing={3}>
-      <Button type="submit" variant="contained" color="success">
+     {complaintUpdate === null?<Button type="submit" variant="contained" color="success" onClick={(e)=>handleSubmitComplaint(e)}>
         Submit Complaint
-      </Button>
-      <Button type="button" onClick={()=>''} variant="outlined" color="error">
+      </Button>:  <Button type="submit" variant="contained" color="success" onClick={(e)=>editComplaint(e, complaint.id)} >
+        Update
+      </Button>}
+      <Button type="button" variant="outlined" color="error">
         Cancel
       </Button>
     </Stack>

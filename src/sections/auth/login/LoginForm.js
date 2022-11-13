@@ -39,19 +39,19 @@ export default function LoginForm() {
     remember: true,
   };
 
-  const methods = useForm({
-    resolver: yupResolver(LoginSchema),
-    defaultValues,
-  });
+  // const methods = useForm({
+  //   resolver: yupResolver(LoginSchema),
+  //   defaultValues,
+  // });
 
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+  // const {
+  //   handleSubmit,
+  //   formState: { isSubmitting },
+  // } = methods;
 
-  const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
-  };
+  // const onSubmit = () => {
+  //   navigate('/dashboard', { replace: true });
+  // };
 
   const [logindata, setLoginData] =useState({
     'Username':'',
@@ -66,8 +66,10 @@ export default function LoginForm() {
       console.log(logindata)
   }
 
-  const HandleSubmit=(event)=>{
+  const HandleSubmit= async (event)=>{
     event.preventDefault();
+    HandleChange()
+    const isValid = await LoginSchema.isValid(setLoginData)
     console.log( `Credentials are ${username} ${password}`)
     APIService.LoginUser({username, password}).then(async (data) => {
       console.log(data);
@@ -106,7 +108,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton onClick={HandleSubmit} fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+      <LoadingButton onClick={HandleSubmit} fullWidth size="large" type="submit" variant="contained" >
         Login
       </LoadingButton>
     </FormProvider>

@@ -10,20 +10,14 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 // material
-import {
-  Card,
-  Stack,
-  Button,
-  Container,
-  Typography,
-  Grid,
-} from '@mui/material';
+import { Card, Stack, Button, Container, Typography, Grid } from '@mui/material';
 // components
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListToolbar, UserMoreMenu } from '../sections/@dashboard/user';
 import { AppNewsUpdate } from '../sections/@dashboard/app';
+import MyApp from './Report';
 
 // ----------------------------------------------------------------------
 
@@ -33,20 +27,17 @@ export default function User() {
   const [filterName, setFilterName] = useState('');
 
   // Fetching the Feedbacks from the API
-  const [feedbacks, setFeedbacks] = useState([
-    
-  ])
-  useEffect(() =>{
+  const [feedbacks, setFeedbacks] = useState([]);
+  useEffect(() => {
     fetch('http://127.0.0.1:8000/api/feedbacks/?user=true', {
-      'method':'GET',headers:{"Content-Type":"application/json"}
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(resp => resp.json())
-    .then(resp => setFeedbacks(resp))
-    .then(console.log(feedbacks))
-    .catch(error => console.log(error))
-    
-  }, [filterName])
-
+      .then((resp) => resp.json())
+      .then((resp) => setFeedbacks(resp))
+      .then(console.log(feedbacks))
+      .catch((error) => console.log(error));
+  }, [filterName]);
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
@@ -59,7 +50,12 @@ export default function User() {
           <Typography variant="h4" gutterBottom>
             Received Feedbacks
           </Typography>
-          <Button variant="contained" component={RouterLink} to="/dashboard/appeal" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="/dashboard/appeal"
+            startIcon={<Iconify icon="eva:plus-fill" />}
+          >
             Launch Appeal
           </Button>
         </Stack>
@@ -69,50 +65,41 @@ export default function User() {
 
           {/* Feebacks Here */}
           <Grid item xs={12} md={6} lg={8}>
-          <List sx={{ width: '100%', maxWidth: 900, bgcolor: 'background.paper' }}>
-        {
-          feedbacks.map(feedback=>{
-            return <ListItem alignItems="flex-start" key={feedback.id}>
-            <ListItemAvatar>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary={feedback.content}
-              secondary={
-                <>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {feedback.action_taken}
-                  </Typography>
-
-                  <br/>
-
-                  Complaint Status: { feedback.feedback_status }
-
-                  <br/>
-
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {}
-                  </Typography>
-                </>
-              }
-            />
-          </ListItem>
-          })
-        }
-      <Divider variant="inset" component="li" />
-    </List>
+            <List sx={{ width: '100%', maxWidth: 900, bgcolor: 'background.paper' }}>
+              {feedbacks.map((feedback) => {
+                return (
+                  <ListItem alignItems="flex-start" key={feedback.id}>
+                    <ListItemAvatar>
+                      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={feedback.content}
+                      secondary={
+                        <>
+                          <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                            {feedback.action_taken}
+                          </Typography>
+                          <br />
+                          Complaint Status: {feedback.feedback_status}
+                          <br />
+                          <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                            {}
+                          </Typography>
+                        </>
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
+              <Divider variant="inset" component="li" />
+            </List>
           </Grid>
-            
+        </Card>
+        <Card>
+          <Grid item xs={12} md={6} lg={8}>
+          <p>Download Report Here!</p>
+          <MyApp/>
+          </Grid>
         </Card>
       </Container>
     </Page>

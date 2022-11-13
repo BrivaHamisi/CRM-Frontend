@@ -36,10 +36,10 @@ const steps = [
 ];
 
 export default function CustomizedSteppers({complaint}) {
-  const [activeStep, setActiveStep] = React.useState(2);
+  const [activeStep, setActiveStep] = React.useState(-1);
  
   React.useEffect(()=>{
-    if (complaint !== null){
+    if (complaint !== null && typeof complaint !== "undefined"){
        const status =  steps.filter(each=> each.label.toLowerCase() === complaint.status_of_complaint)
     console.log(steps.indexOf(status[0]))
      setActiveStep(steps.indexOf(status[0]))

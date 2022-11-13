@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
@@ -7,6 +7,7 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
 import account from '../../_mock/account';
+import { getUser, removeUser } from '../../pages/storage';
 
 // ----------------------------------------------------------------------
 
@@ -14,7 +15,7 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
-    linkTo: '/',
+    linkTo: '/dashboard/app',
   },
   {
     label: 'Profile',
@@ -28,21 +29,33 @@ const MENU_OPTIONS = [
   },
 ];
 
+
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const anchorRef = useRef(null);
+  const navigate = useNavigate();
+
+
 
   const [open, setOpen] = useState(null);
+  const [user, setUser] = useState(null)
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
+  console.log("the user is " ,user)
 
   const handleClose = () => {
+    
     setOpen(null);
   };
+useEffect(()=>{
 
+  getUser().then(auth=>{
+    setUser(auth)
+  }).catch(err=>console.log(err))
+}, [])
   return (
     <>
       <IconButton
@@ -82,10 +95,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {user !==null? user.user.username: ""}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+          {user !==null? user.user.email: ""}
           </Typography>
         </Box>
 
