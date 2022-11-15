@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -10,6 +11,7 @@ import { ComplaintUpdateContext } from '../../../App';
 
 
 function Form() {
+  const navigate = useNavigate();
   const {complaintUpdate} = useContext(ComplaintUpdateContext)
   useEffect(()=>{
   console.log('The complain to be updated:', complaintUpdate)
@@ -51,6 +53,7 @@ function Form() {
     API.put(`/api/complaints/${id}/`, body, await getConfig())
       .then(({ data }) => {
         console.log(data.user)
+        navigate("/dashboard/complaints_status");
       }).catch(err => {
         const error = err?.response?.data
         console.log(error)

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { getUser } from './storage';
 
-export async function getConfig() {
+export async function getConfig(formData = false) {
   const user = await getUser();
   return {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': formData ? 'multipart/form-data' : 'application/json',
       Authorization: `Token ${user.token}`,
     },
   };

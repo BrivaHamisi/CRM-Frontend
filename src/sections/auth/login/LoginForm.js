@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Link, Stack, IconButton, InputAdornment } from '@mui/material';
+import { Link, Stack,IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/Iconify';
@@ -16,17 +16,19 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 import APIService from '../../../components/APIService';
 import { storeUser } from '../../../pages/storage';
 
+
 // ----------------------------------------------------------------------
 
 const baseUrl = 'http://127.0.0.1:8000/api/users/'
 export default function LoginForm() {
+
   
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const LoginSchema = Yup.object().shape({
     Username: Yup.string().required('Username is required'),
@@ -39,19 +41,19 @@ export default function LoginForm() {
     remember: true,
   };
 
-  // const methods = useForm({
-  //   resolver: yupResolver(LoginSchema),
-  //   defaultValues,
-  // });
+  const methods = useForm({
+    resolver: yupResolver(LoginSchema),
+    defaultValues,
+  });
 
-  // const {
-  //   handleSubmit,
-  //   formState: { isSubmitting },
-  // } = methods;
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
-  // const onSubmit = () => {
-  //   navigate('/dashboard', { replace: true });
-  // };
+  const onSubmit = () => {
+    navigate('/dashboard/app', { replace: true });
+  };
 
   const [logindata, setLoginData] =useState({
     'Username':'',
@@ -68,30 +70,29 @@ export default function LoginForm() {
 
   const HandleSubmit= async (event)=>{
     event.preventDefault();
-    HandleChange()
-    const isValid = await LoginSchema.isValid(setLoginData)
     console.log( `Credentials are ${username} ${password}`)
     APIService.LoginUser({username, password}).then(async (data) => {
       console.log(data);
       await storeUser(data);
-      navigate('/dashboard/app', { replace: true, state: data });
+      onSubmit()
     })
   }
  
+ 
   return (
-    <FormProvider methods={methods}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} >
       <Stack spacing={3}>
-        <RHFTextField onChange={e => setUsername(e.target.value)} value={username} name="Username" label="Username" />
+        <RHFTextField onChange={e => setUsername(e.target.value)} value={username.value} name="Username" label="Username" />
 
         <RHFTextField
          onChange={e => setPassword(e.target.value)} 
-         value={password}
+         value={password.value}
           name="Password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment position="end" >
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                 </IconButton>
@@ -108,7 +109,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton onClick={HandleSubmit} fullWidth size="large" type="submit" variant="contained" >
+      <LoadingButton  onClick={(e)=>HandleSubmit(e)}  fullWidth size="large" type="submit" variant="contained" >
         Login
       </LoadingButton>
     </FormProvider>

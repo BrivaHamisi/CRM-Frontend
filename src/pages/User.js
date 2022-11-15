@@ -50,14 +50,6 @@ export default function User() {
           <Typography variant="h4" gutterBottom>
             Received Feedbacks
           </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="/dashboard/appeal"
-            startIcon={<Iconify icon="eva:plus-fill" />}
-          >
-            Launch Appeal
-          </Button>
         </Stack>
 
         <Card>
@@ -88,6 +80,15 @@ export default function User() {
                         </>
                       }
                     />
+                    <Button
+                      variant="contained"
+                      component={RouterLink}
+                      to="/dashboard/appeal"
+                      state={feedback}
+                      startIcon={<Iconify icon="eva:plus-fill" />}
+                    >
+                      Launch Appeal
+                    </Button>
                   </ListItem>
                 );
               })}
@@ -97,8 +98,8 @@ export default function User() {
         </Card>
         <Card>
           <Grid item xs={12} md={6} lg={8}>
-          <p>Download Report Here!</p>
-          <MyApp/>
+            <p>Download Report Here!</p>
+            <MyApp />
           </Grid>
         </Card>
       </Container>
